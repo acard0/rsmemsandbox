@@ -1,0 +1,25 @@
+[package]
+name = "rsmemsandbox"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "rsmemsandbox"
+crate-type = ["cdylib"]
+
+[[bin]]
+name = "rsmemsandbox"
+src = "src/main.rs"
+
+[dependencies]
+windows = { version = "0.57.0", features = ["Win32", "Win32_Foundation", "Win32_System", "Win32_System_Diagnostics", "Win32_System_Memory", "Win32_System_Diagnostics_ToolHelp", "Win32_Security", "Win32_System_Threading", "Win32_System_Diagnostics_Debug", "Win32_System_LibraryLoader", "Win32_UI_WindowsAndMessaging", "Win32_System_SystemServices", "Win32_System_SystemInformation", "Win32_System_ProcessStatus"]}
+sysinfo = "0.30.12"
+
+[profile.release]
+strip = true  # Automatically strip symbols from the binary.
+opt-level = "z"  # Optimize for size.
+lto = true # Enable Link Time Optimization (LTO)
+codegen-units = 1 # Reduce Parallel Code Generation Units to Increase Optimization
+panic = "abort" # Smaller panic implementation
